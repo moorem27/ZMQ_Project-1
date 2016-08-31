@@ -1,0 +1,11 @@
+package gpb;
+
+message Message {
+	required string name = 1;
+	required bytes encoded_message = 2;
+}
+
+message Test_Message {
+	required uint32 num = 1;
+	required string str = 2;
+}
