@@ -14,11 +14,11 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )     # for generated proto fil
 include_directories( include/ )                        # for include files
 include_directories( ${ZMQ_INCLUDE_DIR} )              # for ZMQ files
 
-# create the subsriber executable
+# create the subscriber executable
 add_executable( subscriber subscriber.cpp )
 target_link_libraries( subscriber PUBLIC gpb_lib ${ZMQ_LIBRARIES} )
 
-# create the spublisher executable
+# create the publisher executable
 add_executable( publisher publisher.cpp )
 target_link_libraries( publisher PUBLIC gpb_lib ${ZMQ_LIBRARIES} )
 
