@@ -16,11 +16,11 @@ add_subdirectory( manager/ )
 # set variable for all libraries
 set( LIBS ${LIBS} main_lib gpb_lib ${ZMQ_LIBRARIES} )
 
-# create the subsriber executable
+# create the subscriber executable
 add_executable( subscriber subscriber.cpp )
 target_link_libraries( subscriber ${LIBS} )
 
-# create the spublisher executable
+# create the publisher executable
 add_executable( publisher publisher.cpp )
 target_link_libraries( publisher ${LIBS} )
 
