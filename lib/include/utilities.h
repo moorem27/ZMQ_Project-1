@@ -2,6 +2,7 @@
 #define MESSAGE_UTILITIES_H
 
 #include <string>
+#include <chrono>
 #include <type_traits>
 #include <iostream>
 #include <zmq.hpp>
@@ -14,6 +15,7 @@ namespace util {
 //----------------------------------------------------------------------------------------------------------------------
 
     constexpr std::size_t MAX_MESSAGES{10000};
+    constexpr std::chrono::milliseconds SLEEP_TIME{ 50 };
 
 //----------------------------------------------------------------------------------------------------------------------
 //                                         Message Generators

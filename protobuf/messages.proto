@@ -9,3 +9,9 @@ message Test_Message {
 	required uint32 num = 1;
 	required string str = 2;
 }
+
+message Number_Request { }
+
+message Number_Reply {
+	required int32 num = 1;
+}
