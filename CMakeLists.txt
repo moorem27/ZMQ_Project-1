@@ -11,21 +11,6 @@ find_package( ZMQ REQUIRED )
 # add all subdirectories
 add_subdirectory( protobuf/ )
 add_subdirectory( lib/ )
-add_subdirectory( manager/ )
-add_subdirectory( error/ )
-add_subdirectory( monitor/ )
 add_subdirectory( client/ )
 add_subdirectory( server/ )
-
-# set variable for all libraries
-set( LIBS ${LIBS} main_lib gpb_lib ${ZMQ_LIBRARIES} )
-
-# create the subscriber executable
-add_executable( subscriber subscriber.cpp )
-target_link_libraries( subscriber ${LIBS} )
-
-# create the publisher executable
-add_executable( publisher publisher.cpp )
-target_link_libraries( publisher ${LIBS} )
-
 
