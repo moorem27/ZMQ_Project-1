@@ -1,6 +1,8 @@
 // @file client/main.cpp
 // @brief A datagram client demo
 
+// This example modified from original found here:
+// http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html#datagram
 
 
 #include <stdio.h>

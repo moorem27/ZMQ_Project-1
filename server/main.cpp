@@ -1,6 +1,9 @@
 // @file server/main.cpp
 // @brief A datagram server demo
 
+// This example modified from original found here:
+// http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html#datagram
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -43,7 +46,7 @@ int main( void ) {
     hints.ai_flags = AI_PASSIVE; // use my IP
 
     if ( ( rv = getaddrinfo(NULL, MYPORT, &hints, &servinfo ) ) != 0 ) {
-        fprintf( stderr, "getaddrinfo: %s\n", gai_strerror( rv ) );
+        std::cerr << "getaddrinfo: " << gai_strerror( rv ) << std::endl;
         return 1;
     }
 
@@ -71,7 +74,7 @@ int main( void ) {
 
     freeaddrinfo( servinfo );
 
-    printf( "listener: waiting to recvfrom...\n" );
+    std::cout << "Listener is waiting" << std::endl;
 
     addr_len = sizeof their_addr;
     int count = 0;
