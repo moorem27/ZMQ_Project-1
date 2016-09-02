@@ -14,6 +14,8 @@ add_subdirectory( lib/ )
 add_subdirectory( manager/ )
 add_subdirectory( error/ )
 add_subdirectory( monitor/ )
+add_subdirectory( client/ )
+add_subdirectory( server/ )
 
 # set variable for all libraries
 set( LIBS ${LIBS} main_lib gpb_lib ${ZMQ_LIBRARIES} )
