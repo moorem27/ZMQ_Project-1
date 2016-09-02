@@ -97,6 +97,7 @@ namespace util {
         gpb::Message csa_msg = unpack_to_top_level( zmq_msg );
         char* encoded_message = const_cast<char*>( csa_msg.encoded_message().c_str() );
         T unpacked_msg{};
+        assert( unpacked_msg.GetTypeName() == csa_msg.name() );
         unpacked_msg.ParseFromArray( static_cast<void*>( encoded_message), csa_msg.ByteSize() );
         unpacked_msg.CheckInitialized();
         return unpacked_msg;
