@@ -13,6 +13,7 @@ add_subdirectory( protobuf/ )
 add_subdirectory( lib/ )
 add_subdirectory( router_dealer/ )
 add_subdirectory( client/ )
+add_subdirectory( server/ )
 
 # set variable for all libraries
 set( LIBS ${LIBS} main_lib gpb_lib ${ZMQ_LIBRARIES} )
