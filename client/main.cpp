@@ -7,25 +7,9 @@
 #include <arpa/inet.h>
 #include <zmq.hpp>
 
-//TODO: Begin breaking this apart into functions
-int main( void )
-{
+bool complete_handshake() {
     bool handshake_complete = false;
-
-    // ------------------ For UDP socket -----------------------
-    int socket_file_descriptor = 0;
-
-    // Structure containing internet address
-    struct sockaddr_in client;
-
-    socket_file_descriptor = socket( AF_INET, SOCK_DGRAM, 0 );
-    memset( &client, 0, sizeof( client ) );
-
-    client.sin_family = AF_INET;
-    client.sin_port = htons( 4950 );
-    client.sin_addr.s_addr = inet_addr( "127.0.0.1" );
-    // ----------------------------------------------------------
-
+    // ----------------- For ZMQ socket -------------------------
     zmq::context_t context( 1 );
     zmq::socket_t zmq_socket( context, ZMQ_REQ );
 
@@ -43,7 +27,27 @@ int main( void )
         handshake_complete = true;
     }
 
-    zmq_socket.close();
+    return handshake_complete;
+}
+
+//TODO: Begin breaking this apart into functions
+int main( void )
+{
+    bool handshake_complete = complete_handshake();
+
+    // ------------------ For UDP socket -----------------------
+    int socket_file_descriptor = 0;
+
+    // Structure containing internet address
+    struct sockaddr_in client;
+
+    socket_file_descriptor = socket( AF_INET, SOCK_DGRAM, 0 );
+    memset( &client, 0, sizeof( client ) );
+
+    client.sin_family = AF_INET;
+    client.sin_port = htons( 4950 );
+    client.sin_addr.s_addr = inet_addr( "127.0.0.1" );
+    // ----------------------------------------------------------
 
     if( handshake_complete ) {
         std::cout << "Handshake complete" << std::endl;

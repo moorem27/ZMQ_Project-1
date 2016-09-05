@@ -7,10 +7,7 @@
 #include <thread>
 #include <zmq.hpp>
 
-//TODO: Begin breaking this apart into functions
-int main( void ) {
-
-    // --------------------- For ZMQ socket ---------------------------
+void respond_to_handshake() {
     zmq::context_t context( 1 );
     zmq::socket_t zmq_socket( context, ZMQ_REP );
     zmq_socket.bind( "tcp://*:5555" );
@@ -25,7 +22,12 @@ int main( void ) {
 
     zmq::message_t reply{};
     zmq_socket.send( reply );
-    // ----------------------------------------------------------------
+}
+
+//TODO: Begin breaking this apart into functions
+int main( void ) {
+
+    respond_to_handshake();
 
     // ----------------------- For UDP socket -------------------------
     int socket_file_descriptor = 0;
@@ -63,7 +65,6 @@ int main( void ) {
         buffer[ bytes ] = '\0';
         std::cout << count << " " << buffer << std::endl;
         std::this_thread::sleep_for( std::chrono::milliseconds( 500 ) );
-        std::cout << "\n" << std::endl;
     }
 
     close( socket_file_descriptor) ;
