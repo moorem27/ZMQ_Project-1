@@ -11,12 +11,11 @@ constexpr int MAX_MESSAGE_SIZE  = 65507;
 
 bool complete_handshake() {
     bool handshake_complete = false;
-    // ----------------- For ZMQ socket -------------------------
     zmq::context_t context( 1 );
     zmq::socket_t zmq_socket( context, ZMQ_REQ );
 
     std::cout << "Connecting to server " << std::endl;
-    zmq_socket.connect( "tcp://127.0.0.1:5555" );
+    zmq_socket.connect( "tcp://127.0.0.1:5555" ); // Server IP address
 
     // Send handshake request to server
     zmq::message_t request{};
@@ -39,7 +38,7 @@ void initialize_udp_socket( int& socket_file_descriptor, sockaddr_in& client ) {
 
     client.sin_family       = AF_INET;
     client.sin_port         = htons( 4950 );
-    client.sin_addr.s_addr  = inet_addr( "127.0.0.1" );
+    client.sin_addr.s_addr  = inet_addr( "127.0.0.1" ); // Server IP address
 }
 
 
@@ -52,7 +51,6 @@ void send_messages( const int socket_file_descriptor, const sockaddr_in& client,
             perror( "Send failed" );
             exit( 1 );
         }
-        std::this_thread::sleep_for( std::chrono::milliseconds( 500 ) );
     } else {
         std::cerr << "Message size exceeds limit" << std::endl;
     }
@@ -60,21 +58,20 @@ void send_messages( const int socket_file_descriptor, const sockaddr_in& client,
 
 
 int main( void ) {
-    int socket_file_descriptor = 0;
+    int socket_file_descriptor 	= 0;
+    bool is_running		= true;
+    bool handshake_complete	= complete_handshake();
     struct sockaddr_in client{};
     std::string message{};
 
-    bool handshake_complete = complete_handshake();
-
     if( handshake_complete ) {
         initialize_udp_socket( socket_file_descriptor, client );
-
-        // TODO: Add condition to while loop
-        while( 1 ) {
+        while( is_running ) {
             // Block for message, signal, etc
             std::cout << "Enter a message: ";
             std::getline( std::cin, message );
-
+	    if( message == "shutdown" )
+                is_running = false;
             send_messages( socket_file_descriptor, client, message );
         }
     }

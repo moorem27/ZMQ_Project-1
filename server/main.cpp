@@ -7,8 +7,6 @@
 #include <thread>
 #include <zmq.hpp>
 
-//TODO: Clean up this code, it's nasty
-
 constexpr int UDP_PORT_NUMBER   = 4950;
 constexpr int PI_TO_ARD_PORT	= 5005;
 constexpr int BUFFER_LIMIT      = 65507;
@@ -58,7 +56,7 @@ void receive_messages( const int socket_file_descriptor, sockaddr_in& server ) {
 
     client.sin_family = AF_INET;
     client.sin_port = htons( 5005 );
-    client.sin_addr.s_addr = inet_addr( "your.server.ip.address" );
+    client.sin_addr.s_addr = inet_addr( "127.0.0.1" ); // Server IP address
 
     std::cout << "Server is waiting" << std::endl;
 
@@ -71,7 +69,7 @@ void receive_messages( const int socket_file_descriptor, sockaddr_in& server ) {
         if( bytes < 0 ) {
             std::cerr << "Receive failed" << std::endl;
         } else {
-            std::cout << "Forwarding to Arduino " << std::string{ buffer } << std::endl;
+            std::cout << std::string{ buffer } << std::endl;
             sendto( send_descriptor, send_message.c_str(), message_size, 0, (struct sockaddr*)&client, sizeof( client) ); 
 	}
         if( std::string{ buffer } == SHUTDOWN )
